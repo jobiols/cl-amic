@@ -23,7 +23,8 @@ class StockMoveLine(models.Model):
     @api.onchange('lot_char')
     def onchange_lot_char(self):
         lot_obj = self.env['stock.production.lot']
-        domain = [('product_id', '=', self.product_id.id), ('name', '=', self.lot_char)]
+        domain = [('product_id', '=', self.product_id.id),
+                  ('name', '=', self.lot_char.strip())]
         _lot = lot_obj.search(domain)
         if _lot:
             self.lot_id = _lot
