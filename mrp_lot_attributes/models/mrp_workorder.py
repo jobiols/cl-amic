@@ -68,9 +68,15 @@ class MrpWorkorder(models.Model):
             raise UserError(_('La cantidad a fabricar debe ser 1 para este '
                               'producto'))
 
-        if self.time_end - self.time_start < 0.16:
-            raise UserError('La duracion no puede ser menor que 10 minutos.\n'
-                            'Revise el Horario de producción')
+        if self.department_id.id == 23:     #  operarios
+            if self.time_end - self.time_start < 0.16:
+                raise UserError('La duracion no puede ser menor que 10 minutos.\n'
+                                'Revise el Horario de producción')
+
+        if self.department_id.id == 25:     #  terceros
+            if self.date_end1 <= self.date_start1:
+                raise UserError('La duracion no puede ser menor que 1 dia.\n'
+                                'Revise el Horario de producción')
 
     def validate_lots(self):
         if ((self.production_id.product_id.tracking != 'none') and
