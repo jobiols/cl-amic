@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------------
 #
-#    Copyright (C) 2020  jeo Software  (http://www.jeosoft.com.ar)
+#    Copyright (C) 2021  jeo Software  (http://www.jeosoft.com.ar)
 #    All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -80,12 +80,10 @@
 
         {'usr': 'ingadhoc', 'repo': 'odoo-argentina', 'branch': '11.0'},
         {'usr': 'ingadhoc', 'repo': 'argentina-sale', 'branch': '11.0'},
-        {'usr': 'ingadhoc', 'repo': 'account-financial-tools',
-         'branch': '11.0'},
+        {'usr': 'ingadhoc', 'repo': 'account-financial-tools', 'branch': '11.0'},
         {'usr': 'ingadhoc', 'repo': 'account-payment', 'branch': '11.0'},
         {'usr': 'ingadhoc', 'repo': 'miscellaneous', 'branch': '11.0'},
-        {'usr': 'ingadhoc', 'repo': 'argentina-reporting',
-         'branch': '11.0'},
+        {'usr': 'ingadhoc', 'repo': 'argentina-reporting', 'branch': '11.0'},
         {'usr': 'ingadhoc', 'repo': 'reporting-engine', 'branch': '11.0'},
         {'usr': 'ingadhoc', 'repo': 'aeroo_reports', 'branch': '11.0'},
         {'usr': 'ingadhoc', 'repo': 'sale', 'branch': '11.0'},
@@ -109,6 +107,7 @@
         {'usr': 'oca', 'repo': 'stock-logistics-warehouse', 'branch': '11.0'},
         {'usr': 'oca', 'repo': 'stock-logistics-reporting', 'branch': '11.0'},
         {'usr': 'oca', 'repo': 'stock-logistics-workflow', 'branch': '11.0'},
+        {'usr': 'oca', 'repo': 'knowledge', 'branch': '11.0'},
     ],
 
     'docker': [
