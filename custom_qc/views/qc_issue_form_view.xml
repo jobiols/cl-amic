@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- qc.issue inherit form view -->
+    <record id="qc_issue_form" model="ir.ui.view">
+        <field name="name">QC customization</field>
+        <field name="model">qc.issue</field>
+        <field name="inherit_id" ref="quality_control_issue.qc_issue_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="workcenter_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
