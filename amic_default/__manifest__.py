@@ -108,6 +108,7 @@
         {'usr': 'oca', 'repo': 'stock-logistics-reporting', 'branch': '11.0'},
         {'usr': 'oca', 'repo': 'stock-logistics-workflow', 'branch': '11.0'},
         {'usr': 'oca', 'repo': 'knowledge', 'branch': '11.0'},
+        {'usr': 'oca', 'repo': 'hr', 'branch': '11.0'},
     ],
 
     'docker': [
