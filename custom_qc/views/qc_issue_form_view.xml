@@ -14,6 +14,16 @@
             <xpath expr="//field[@name='location_id']" position="after">
                 <field name="issue_date"/>
             </xpath>
-    </field>
-</record>
+            <xpath expr="//field[@name='lot_id']" position="before">
+                <button name="create_nonconformity" string="Add Nonconformity" type="object" class="btn-danger"/>
+            </xpath>
+            <xpath expr="//group[@name='bottom']" position="after">
+                <notebook>
+                    <page string="Nonconformity">
+                        <field name="issue_ids" options="{'no_create': True}"/>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
 </odoo>

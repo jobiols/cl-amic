@@ -14,6 +14,8 @@
     'installable': True,
     'depends': [
         'quality_control_issue',
+        'mgmtsystem',
+        'mgmtsystem_nonconformity',
     ],
     'data': [
         'views/qc_issue_form_view.xml'
