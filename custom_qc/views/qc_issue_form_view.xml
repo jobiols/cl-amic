@@ -7,8 +7,13 @@
         <field name="inherit_id" ref="quality_control_issue.qc_issue_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='state']" position="after">
-                <field name="workcenter_id"/>
+                <field name="workcenter_1_id"/>
+                <field name="workcenter_2_id"/>
+                <field name="workcenter_3_id"/>
             </xpath>
-        </field>
-    </record>
+            <xpath expr="//field[@name='location_id']" position="after">
+                <field name="issue_date"/>
+            </xpath>
+    </field>
+</record>
 </odoo>
