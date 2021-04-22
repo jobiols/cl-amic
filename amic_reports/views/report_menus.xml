@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<odoo>
+    <menuitem
+        id="menu_m_reports_oee"
+        name="Overall Equipment Effectiveness (OEE)"
+        parent="menu_m_reports"
+        groups="group_equipment_manager,base.group_user"
+        sequence="1"/>    
+</odoo>
