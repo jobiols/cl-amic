@@ -18,7 +18,7 @@
 #
 # -----------------------------------------------------------------------------
 {
-    'name': 'amic_reports',
+    'name': 'Amic Reports',
     'version': '11.0.1.0.0',
     'license': 'Other OSI approved licence',
     'category': 'Reports',
@@ -26,7 +26,7 @@
     "development_status": "Alpha",  # "Alpha|Beta|Production/Stable|Mature"
     'author': 'jeo Software',
     'depends': [
-        # basic applications
+        'mrp'
     ],
     'data': [
         'views/report_menus.xml'
