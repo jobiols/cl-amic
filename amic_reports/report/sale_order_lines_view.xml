@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_lines_tree" model="ir.ui.view">
+        <field name="name">AMIC REPORTS pivot</field>
+        <field name="model">sale.order.lines.report</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="name"/>
+                <field name="requested_date"/>
+                <field name="partner_name"/>
+                <field name="state"/>
+                <field name="default_code"/>
+                <field name="product_name"/>
+                <field name="sol_name"/>
+                <field name="quantity"/>
+                <field name="delivered"/>
+                <field name="price_unit"/>
+                <field name="currency"/>
+                <field name="uom"/>
+                <field name="uom_factor_inv"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

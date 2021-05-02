@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="despachadas_vs_pedidas_pivot_action" model="ir.actions.act_window" >
+        <field name="name">Despachadas Versus Pedidas</field>
+        <field name="res_model">sale.order.lines.report</field>
+        <field name="view_mode">tree,pivot</field>
+        <field name="view_id" ref="sale_order_lines_tree"/>
+        <field name="view_type">form</field>
+<!--
+        <field name="search_view_id" ref="analytic.view_account_analytic_line_filter"/>
+    -->
+    </record>
+
+    <!-- Mostrar el repore pivot -->
+    <menuitem
+        id="menu_report_despachadas_vs_pedidas"
+        name="Despachadas versus pedidas"
+        action="despachadas_vs_pedidas_pivot_action"
+        parent="mrp.menu_mrp_reporting"
+        sequence="10"/>    
+</odoo>
