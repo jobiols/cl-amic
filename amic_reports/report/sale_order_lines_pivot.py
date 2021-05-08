@@ -9,25 +9,136 @@ class SaleReport(models.Model):
     _rec_name = 'name'
     _order = 'requested_date desc'
 
-    name = fields.Char(readonly=True)
-    requested_date = fields.Date(readonly=True)
-    partner_name = fields.Char(readonly=True)
-    state = fields.Char(readonly=True)
-    default_code = fields.Char(readonly=True)
-    product_name = fields.Char(readonly=True)
-    sol_name = fields.Char(readonly=True)
-    quantity = fields.Float(readonly=True)
-    delivered = fields.Float(readonly=True)
-    price_unit = fields.Float(readonly=True)
-    currency = fields.Char(readonly=True)
-    uom = fields.Char(readonly=True)
-    uom_factor = fields.Float(readonly=True)
-    uom_factor_inv = fields.Float(readonly=True, compute="_compute_uom_factor_inv")
-    create_date = fields.Date(readonly=True)
+    name = fields.Char(
+        readonly=True,
+        string="Pedido"
+    )
+    requested_date = fields.Date(
+        readonly=True,
+        string="Fecha Solicitada"
+    )
+    partner_name = fields.Char(
+        readonly=True,
+        string="Cliente"
+    )
+    state = fields.Char(
+        readonly=True,
+        string="Estado del pedido"
+    )
+    default_code = fields.Char(
+        readonly=True,
+        string="Prod. Referencia interna"
+    )
+    product_name = fields.Char(
+        readonly=True,
+        string="Prod. Nombre"
+    )
+    sol_name = fields.Char(
+        readonly=True,
+        string="Prod. Referencia y nombre"
+    )
+    quantity = fields.Float(
+        readonly=True,
+        string="Cantidad Vendida"
+    )
+    delivered = fields.Float(
+        readonly=True,
+        string="Cantidad Entregada"
+    )
+    price_unit = fields.Float(
+        readonly=True,
+        string="Precio por unidad"
+    )
+    currency = fields.Char(
+        readonly=True,
+        string="Moneda"
+    )
+    uom = fields.Char(
+        readonly=True,
+        string="UdM nombre"
+    )
+    uom_factor = fields.Float(
+        readonly=True,
+        string="UdM Relación"
+    )
+    create_date = fields.Date(
+        readonly=True,
+        string="Fecha de creación"
+    )
+    create_user = fields.Char(
+        readonly=True,
+        string="Creado por"
+    )
+
+    # Campos calculados
+    uom_factor_inv = fields.Float(
+        readonly=True,
+        compute="_compute_uom_factor_inv"
+    )
+    programmed_units_qty = fields.Integer(
+        readonly=True,
+        string="Cantidad de Unidades Programadas",
+        compute="_compute_programmed_units_qty"
+    )
+    pending_units_qty = fields.Integer(
+        readonly=True,
+        string="Cantidad de Unidades Pendientes de Entrega",
+        compute="_compute_pending_units_qty"
+    )
+    dispatched_qty = fields.Integer(
+        readonly=True,
+        string="Cantidad de Unidades Despachadas",
+        compute="_compute_dispatched_qty"
+    )
+    invoiced_usd = fields.Monetary(
+        readonly=True,
+        string="Facturación U$S",
+        compute="_compute_invoiced_usd",
+        currency_field='usd_currency_id'
+    )
+    invoiced_ars = fields.Monetary(
+        readonly=True,
+        string="Facturación ARS",
+        compute="_compute_invoiced_ars",
+        currency_field='ars_currency_id'
+    )
+    usd_currency_id = fields.Many2one(
+        'res.currency',
+        readonly=True,
+    )
+    ars_currency_id = fields.Many2one(
+        'res.currency',
+        readonly=True,
+    )
+    def _compute_invoiced_ars(self):
+        for rec in self:
+            if rec.currency == 'ARS':
+                rec.invoiced_ars = rec.quantity * rec.price_unit * rec.uom_factor_inv
+            else:
+                rec.invoiced_ars = False
+
+    def _compute_invoiced_usd(self):
+        for rec in self:
+            if rec.currency == 'USD':
+                rec.invoiced_usd = rec.quantity * rec.price_unit * rec.uom_factor_inv
+            else:
+                rec.invoiced_usd = False
+
+    def _compute_dispatched_qty(self):
+        for rec in self:
+            rec.dispatched_qty = rec.delivered * rec.uom_factor_inv
+
+    def _compute_pending_units_qty(self):
+        for rec in self:
+            rec.pending_units_qty = (rec.quantity - rec.delivered) * rec.uom_factor_inv
 
     def _compute_uom_factor_inv(self):
         for rec in self:
             rec.uom_factor_inv = 1/rec.uom_factor if rec.uom_factor != 0 else 0
+
+    def _compute_programmed_units_qty(self):
+        for rec in self:
+            rec.programmed_units_qty = rec.quantity * rec.uom_factor_inv
 
     def _select(self):
         select_str = """
@@ -45,7 +156,10 @@ class SaleReport(models.Model):
                     rc.name as currency,
                     pu.name as uom,
                     pu.factor as uom_factor,
-                    sol.create_date::timestamp::date
+                    sol.create_date::timestamp::date,
+                    rp1.name as create_user,
+                    3 as usd_currency_id,
+                    20 as ars_currency_id
         """
         return select_str
 
@@ -70,6 +184,12 @@ class SaleReport(models.Model):
 
             JOIN product_uom pu
             ON sol.product_uom = pu.id
+
+            JOIN res_users ru
+            ON sol.create_uid = ru.id
+
+            JOIN res_partner rp1
+            ON ru.partner_id = rp1.id
         """
         return from_str
 

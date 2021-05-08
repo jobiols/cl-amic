@@ -19,6 +19,12 @@
                 <field name="uom"/>
                 <field name="uom_factor_inv"/>
                 <field name="create_date"/>
+                <field name="create_user"/>
+                <field name="programmed_units_qty" />
+                <field name="pending_units_qty" />
+                <field name="dispatched_qty" />
+                <field name="invoiced_usd" />
+                <field name="invoiced_ars" />
             </tree>
         </field>
     </record>
