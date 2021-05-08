@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <odoo>
-    <record id="despachadas_vs_pedidas_pivot_action" model="ir.actions.act_window" >
-        <field name="name">Despachadas Versus Pedidas</field>
+    <record id="despachadas_vs_vendidas_pivot_action" model="ir.actions.act_window" >
+        <field name="name">Piezas Despachadas Versus Vendidas</field>
         <field name="res_model">sale.order.lines.report</field>
         <field name="view_mode">tree,pivot</field>
         <field name="view_id" ref="sale_order_lines_tree"/>
@@ -13,9 +13,9 @@
 
     <!-- Mostrar el repore pivot -->
     <menuitem
-        id="menu_report_despachadas_vs_pedidas"
-        name="Despachadas versus pedidas"
-        action="despachadas_vs_pedidas_pivot_action"
-        parent="mrp.menu_mrp_reporting"
+        id="menu_report_despachadas_vs_vendidas"
+        name="Despachadas versus vendidas"
+        action="despachadas_vs_vendidas_pivot_action"
+        parent="sale.menu_report_product_all"
         sequence="10"/>    
 </odoo>

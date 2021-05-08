@@ -33,7 +33,7 @@ class SaleReport(models.Model):
         select_str = """
             SELECT  sol.id,
                     so.name,
-                    so.requested_date,
+                    so.requested_date::timestamp::date,
                     rp.name as partner_name,
                     sol.state,
                     pp.default_code,
@@ -45,7 +45,7 @@ class SaleReport(models.Model):
                     rc.name as currency,
                     pu.name as uom,
                     pu.factor as uom_factor,
-                    sol.create_date
+                    sol.create_date::timestamp::date
         """
         return select_str
 
