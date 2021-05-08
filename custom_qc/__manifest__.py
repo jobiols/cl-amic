@@ -20,6 +20,7 @@
     'data': [
         'views/qc_issue_form_view.xml',
         'views/mgmsystem_nonconformity_view.xml',
+        'report/qc_issue_report_view.xml',
         #'security/ir.model.access.csv'
     ],
 }
