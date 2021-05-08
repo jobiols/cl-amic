@@ -3,7 +3,7 @@
 {
     'name': 'Custom QC',
     'summary': 'Customizacion del control del calidad',
-    'version': '11.0.1.0.0',
+    'version': '11.0.1.0.1',
     "development_status": "Beta",  # "Alpha|Beta|Production/Stable|Mature"
     'category': 'Tools',
     'website': 'http://jeosoft.com.ar',
@@ -18,6 +18,8 @@
         'mgmtsystem_nonconformity',
     ],
     'data': [
-        'views/qc_issue_form_view.xml'
+        'views/qc_issue_form_view.xml',
+        'views/mgmsystem_nonconformity_view.xml',
+        #'security/ir.model.access.csv'
     ],
 }
