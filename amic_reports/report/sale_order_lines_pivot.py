@@ -71,10 +71,6 @@ class SaleReport(models.Model):
     )
 
     # Campos calculados
-    uom_factor_inv = fields.Float(
-        readonly=True,
-        compute="_compute_uom_factor_inv"
-    )
     programmed_units_qty = fields.Integer(
         readonly=True,
         string="Cantidad de Unidades Programadas",
@@ -113,32 +109,28 @@ class SaleReport(models.Model):
     def _compute_invoiced_ars(self):
         for rec in self:
             if rec.currency == 'ARS':
-                rec.invoiced_ars = rec.quantity * rec.price_unit * rec.uom_factor_inv
+                rec.invoiced_ars = rec.quantity * rec.price_unit * rec.uom_factor
             else:
                 rec.invoiced_ars = False
 
     def _compute_invoiced_usd(self):
         for rec in self:
             if rec.currency == 'USD':
-                rec.invoiced_usd = rec.quantity * rec.price_unit * rec.uom_factor_inv
+                rec.invoiced_usd = rec.quantity * rec.price_unit * rec.uom_factor
             else:
                 rec.invoiced_usd = False
 
     def _compute_dispatched_qty(self):
         for rec in self:
-            rec.dispatched_qty = rec.delivered * rec.uom_factor_inv
+            rec.dispatched_qty = rec.delivered * rec.uom_factor
 
     def _compute_pending_units_qty(self):
         for rec in self:
-            rec.pending_units_qty = (rec.quantity - rec.delivered) * rec.uom_factor_inv
-
-    def _compute_uom_factor_inv(self):
-        for rec in self:
-            rec.uom_factor_inv = 1/rec.uom_factor if rec.uom_factor != 0 else 0
+            rec.pending_units_qty = (rec.quantity - rec.delivered) * rec.uom_factor
 
     def _compute_programmed_units_qty(self):
         for rec in self:
-            rec.programmed_units_qty = rec.quantity * rec.uom_factor_inv
+            rec.programmed_units_qty = rec.quantity * rec.uom_factor
 
     def _select(self):
         select_str = """
@@ -155,7 +147,7 @@ class SaleReport(models.Model):
                     sol.price_unit,
                     rc.name as currency,
                     pu.name as uom,
-                    pu.factor as uom_factor,
+                    1/pu.factor as uom_factor,
                     sol.create_date::timestamp::date,
                     rp1.name as create_user,
                     3 as usd_currency_id,
