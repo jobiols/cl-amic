@@ -1,1 +1,4 @@
-Libros de iva compras e iva ventas
+Este módulo agrega reportes customizados tipo PIVOT
+
+- Despachadas Versus Pedidas
+-
