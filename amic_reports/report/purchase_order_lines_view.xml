@@ -6,25 +6,19 @@
         <field name="arch" type="xml">
             <tree create="0">
                 <field name="name"/>
-                <!--<field name="requested_date"/>
-                <field name="partner_name"/>
-                <field name="state"/>
-                <field name="default_code"/>
-                <field name="product_name"/>
-                <field name="sol_name"/>
-                <field name="quantity"/>
-                <field name="delivered"/>
-                <field name="price_unit"/>
-                <field name="currency"/>
-                <field name="uom"/>
-                <field name="uom_factor" />
+                <field name="origin"/>
+                <field name="id_line"/>
+                <field name="date_order"/>
+                <field name="date_planned"/>
+                <field name="contact_name"/>
+                <field name="description" />
+                <field name="product_qty" />
+                <field name="qty_received" />
+                <field name="uom" />
+
                 <field name="create_date"/>
-                <field name="create_user"/>
-                <field name="programmed_units_qty" />
-                <field name="pending_units_qty" />
-                <field name="dispatched_qty" />
-                <field name="invoiced_usd" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                <field name="invoiced_ars" widget="monetary" options="{'currency_field': 'currency_id'}"/> -->
+                <field name="write_date"/>
+                <field name="write_usr"/>
             </tree>
         </field>
     </record>
@@ -35,25 +29,20 @@
         <field name="arch" type="xml">
             <pivot disable_linking="True">
                 <field name="name" />
-                <!-- <field name="requested_date" interval="month"/>
-                <field name="create_date" interval="month" />
-                <field name="partner_name"/>
-                <field name="state"/>
-                <field name="default_code"/>
-                <field name="product_name"/>
-                <field name="sol_name"/>
-                <field name="currency"/>
-                <field name="uom"/>
-                <field name="uom_factor" />
-                <field name="create_user"/>
-                <field name="quantity"  />
-                <field name="delivered"  />
-                <field name="price_unit"  />
-                <field name="programmed_units_qty" />
-                <field name="pending_units_qty" />
-                <field name="dispatched_qty" />
-                <field name="invoiced_usd" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                <field name="invoiced_ars" widget="monetary" options="{'currency_field': 'currency_id'}"/> -->
+                <field name="origin" />
+                <field name="id_line"/>
+                <field name="date_order"/>
+                <field name="date_planned"/>
+                <field name="contact_name"/>
+                <field name="description" />
+                <field name="product_qty" />
+                <field name="qty_received" />
+                <field name="uom" />
+
+                <field name="create_date"/>
+                <field name="write_date"/>
+                <field name="write_usr"/>
+
             </pivot>
         </field>
     </record>
