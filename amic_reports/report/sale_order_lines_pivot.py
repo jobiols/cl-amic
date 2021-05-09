@@ -101,7 +101,6 @@ class SaleReport(models.Model):
         'res.currency',
         readonly=True,
     )
-
     def _select(self):
         select_str = """
             SELECT  sol.id,

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="sale_order_lines_tree" model="ir.ui.view">
+    <record id="purchase_order_lines_tree" model="ir.ui.view">
         <field name="name">AMIC REPORTS tree</field>
-        <field name="model">sale.order.lines.report</field>
+        <field name="model">purchase.order.lines.report</field>
         <field name="arch" type="xml">
             <tree create="0">
                 <field name="name"/>
-                <field name="requested_date"/>
+                <!--<field name="requested_date"/>
                 <field name="partner_name"/>
                 <field name="state"/>
                 <field name="default_code"/>
@@ -24,18 +24,18 @@
                 <field name="pending_units_qty" />
                 <field name="dispatched_qty" />
                 <field name="invoiced_usd" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                <field name="invoiced_ars" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="invoiced_ars" widget="monetary" options="{'currency_field': 'currency_id'}"/> -->
             </tree>
         </field>
     </record>
 
-    <record id="sale_order_lines_pivot" model="ir.ui.view">
+    <record id="purchase_order_lines_pivot" model="ir.ui.view">
         <field name="name">AMIC REPORTS pivot</field>
-        <field name="model">sale.order.lines.report</field>
+        <field name="model">purchase.order.lines.report</field>
         <field name="arch" type="xml">
             <pivot disable_linking="True">
                 <field name="name" />
-                <field name="requested_date" interval="month"/>
+                <!-- <field name="requested_date" interval="month"/>
                 <field name="create_date" interval="month" />
                 <field name="partner_name"/>
                 <field name="state"/>
@@ -53,14 +53,14 @@
                 <field name="pending_units_qty" />
                 <field name="dispatched_qty" />
                 <field name="invoiced_usd" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                <field name="invoiced_ars" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="invoiced_ars" widget="monetary" options="{'currency_field': 'currency_id'}"/> -->
             </pivot>
         </field>
     </record>
 
-    <record id="view_account_move_line_filter" model="ir.ui.view">
+    <!-- <record id="view_account_move_line_filter" model="ir.ui.view">
         <field name="name">Pivot</field>
-        <field name="model">sale.order.lines.report</field>
+        <field name="model">purchase.order.lines.report</field>
         <field name="arch" type="xml">
 
             <search string="Search Journal Items">
@@ -72,6 +72,6 @@
                 </group>
             </search>
         </field>
-    </record>
+    </record> -->
 
 </odoo>

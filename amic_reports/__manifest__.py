@@ -29,6 +29,7 @@
     ],
     'data': [
         'report/sale_order_lines_view.xml',
+        'report/purchase_order_lines_view.xml',
         'views/report_menus.xml',
     ],
     'test': [

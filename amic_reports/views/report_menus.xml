@@ -6,16 +6,28 @@
         <field name="view_mode">tree,pivot</field>
         <field name="view_id" ref="sale_order_lines_tree"/>
         <field name="view_type">form</field>
-<!--
-        <field name="search_view_id" ref="analytic.view_account_analytic_line_filter"/>
-    -->
     </record>
 
-    <!-- Mostrar el repore pivot -->
+    <record id="recibidas_vs_compradas_pivot_action" model="ir.actions.act_window" >
+        <field name="name">Piezas Recibidas Versus Compradas</field>
+        <field name="res_model">purchase.order.lines.report</field>
+        <field name="view_mode">tree,pivot</field>
+        <field name="view_id" ref="purchase_order_lines_tree"/>
+        <field name="view_type">form</field>
+    </record>
+
     <menuitem
         id="menu_report_despachadas_vs_vendidas"
-        name="Despachadas versus vendidas"
+        name="Despachadas versus Vendidas"
         action="despachadas_vs_vendidas_pivot_action"
         parent="sale.menu_report_product_all"
+        sequence="10"/>    
+
+    <menuitem
+        id="menu_report_recibidas_vs_compradas"
+        name="Recibidas versus Compradas"
+        action="recibidas_vs_compradas_pivot_action"
+        parent="purchase.purchase_report"
+        groups="purchase.group_purchase_manager"
         sequence="10"/>    
 </odoo>
