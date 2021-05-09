@@ -48,7 +48,8 @@
                                 <td>
                                     <strong>Equipo QC</strong> 
                                 </td>
-                                <td><span t-field="o.qc_team_id"/></td>
+                                <td>
+                                    <span t-field="o.qc_team_id"/></td>
                                 <td>
                                     <strong>Cantidad</strong> 
                                 </td>
@@ -120,8 +121,10 @@
                                     <span t-field="o.description"/>
                                 </td>
                                 <td>
+                                    <strong>Determinación</strong>
                                 </td>
                                 <td>
+                                    <span t-field="o.determination"/>
                                 </td>
                             </tr>
                         </table>

@@ -21,6 +21,14 @@ class QcIssueForm(models.Model):
         'issue_id',
         'Nonconformity'
     )
+    determination = fields.Selection(
+        [
+            ('desvio', 'Desvío'),
+            ('retrabajo', 'Retrabajo'),
+            ('scrap', 'Scrap'),
+        ],
+        string="Determinación"
+    )
 
     @api.multi
     def create_nonconformity(self, **kwargs):
