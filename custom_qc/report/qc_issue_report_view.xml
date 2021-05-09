@@ -100,7 +100,7 @@
                             </tr>                                
                             <tr>    
                                 <td>
-                                    <strong>Workcenter 3 Tratam.</strong> 
+                                    <strong>Tratamiento</strong> 
                                 </td>
                                 <td>
                                     <span t-field="o.workcenter_3_id"/>

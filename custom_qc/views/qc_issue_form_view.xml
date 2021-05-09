@@ -9,7 +9,7 @@
             <xpath expr="//field[@name='state']" position="after">
                 <field name="workcenter_1_id" string="Workcenter 1 Detectó" />
                 <field name="workcenter_2_id" string="Workcenter 2 Origen"/>
-                <field name="workcenter_3_id" string="Workcenter 3 Tratam."/>
+                <field name="workcenter_3_id" string="Tratamiento"/>
             </xpath>
             <xpath expr="//field[@name='location_id']" position="after">
                 <field name="issue_date"/>

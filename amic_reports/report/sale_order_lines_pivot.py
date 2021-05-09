@@ -74,28 +74,23 @@ class SaleReport(models.Model):
     programmed_units_qty = fields.Integer(
         readonly=True,
         string="Cantidad de Unidades Programadas",
-        compute="_compute_programmed_units_qty"
     )
     pending_units_qty = fields.Integer(
         readonly=True,
         string="Cantidad de Unidades Pendientes de Entrega",
-        compute="_compute_pending_units_qty"
     )
     dispatched_qty = fields.Integer(
         readonly=True,
         string="Cantidad de Unidades Despachadas",
-        compute="_compute_dispatched_qty"
     )
     invoiced_usd = fields.Monetary(
         readonly=True,
-        string="Facturación U$S",
-        compute="_compute_invoiced_usd",
+        string="Facturación USD",
         currency_field='usd_currency_id'
     )
     invoiced_ars = fields.Monetary(
         readonly=True,
         string="Facturación ARS",
-        compute="_compute_invoiced_ars",
         currency_field='ars_currency_id'
     )
     usd_currency_id = fields.Many2one(
@@ -106,31 +101,6 @@ class SaleReport(models.Model):
         'res.currency',
         readonly=True,
     )
-    def _compute_invoiced_ars(self):
-        for rec in self:
-            if rec.currency == 'ARS':
-                rec.invoiced_ars = rec.quantity * rec.price_unit * rec.uom_factor
-            else:
-                rec.invoiced_ars = False
-
-    def _compute_invoiced_usd(self):
-        for rec in self:
-            if rec.currency == 'USD':
-                rec.invoiced_usd = rec.quantity * rec.price_unit * rec.uom_factor
-            else:
-                rec.invoiced_usd = False
-
-    def _compute_dispatched_qty(self):
-        for rec in self:
-            rec.dispatched_qty = rec.delivered * rec.uom_factor
-
-    def _compute_pending_units_qty(self):
-        for rec in self:
-            rec.pending_units_qty = (rec.quantity - rec.delivered) * rec.uom_factor
-
-    def _compute_programmed_units_qty(self):
-        for rec in self:
-            rec.programmed_units_qty = rec.quantity * rec.uom_factor
 
     def _select(self):
         select_str = """
@@ -141,17 +111,43 @@ class SaleReport(models.Model):
                     sol.state,
                     pp.default_code,
                     pt.name as product_name,
-                    sol.name as sol_name,
-                    sol.product_uom_qty as quantity,
-                    sol.qty_delivered as delivered,
+                    sol.name
+                        as sol_name,
+                    sol.product_uom_qty
+                        as quantity,
+                    sol.qty_delivered
+                        as delivered,
                     sol.price_unit,
-                    rc.name as currency,
-                    pu.name as uom,
-                    1/pu.factor as uom_factor,
+                    rc.name
+                        as currency,
+                    pu.name
+                        as uom,
+                    1/pu.factor
+                        as uom_factor,
                     sol.create_date::timestamp::date,
-                    rp1.name as create_user,
+                    rp1.name
+                        as create_user,
                     3 as usd_currency_id,
-                    20 as ars_currency_id
+                    20 as ars_currency_id,
+                    (CASE WHEN rc.name = 'ARS'
+                          THEN sol.product_uom_qty * sol.price_unit / pu.factor
+                          ELSE NULL
+                     END)
+                        as invoiced_ars,
+                    (CASE WHEN rc.name = 'USD'
+                          THEN sol.product_uom_qty * sol.price_unit / pu.factor
+                          ELSE NULL
+                     END)
+                        as invoiced_usd,
+
+                    sol.qty_delivered / pu.factor
+                        as dispatched_qty,
+
+                    (sol.product_uom_qty - sol.qty_delivered) / pu.factor
+                        as pending_units_qty,
+
+                    sol.product_uom_qty / pu.factor
+                        as programmed_units_qty
         """
         return select_str
 
