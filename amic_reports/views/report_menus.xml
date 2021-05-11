@@ -21,6 +21,7 @@
         name="Despachadas versus Vendidas"
         action="despachadas_vs_vendidas_pivot_action"
         parent="sale.menu_report_product_all"
+        groups="sales_team.group_sale_salesman"
         sequence="10"/>    
 
     <menuitem
