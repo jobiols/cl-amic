@@ -18,12 +18,12 @@
 #
 # -----------------------------------------------------------------------------
 {
-    'name': 'Amic Reports',
+    'name': 'Amic PIVOT Reports',
     'version': '11.0.1.0.0',
     'license': 'Other OSI approved licence',
     'category': 'Reports',
     'summary': 'Reportes customizados para AMIC',
-    "development_status": "Alpha",  # "Alpha|Beta|Production/Stable|Mature"
+    "development_status": "Beta",  # "Alpha|Beta|Production/Stable|Mature"
     'author': 'jeo Software',
     'depends': [
     ],

@@ -1,4 +1,5 @@
 Este módulo agrega reportes customizados tipo PIVOT
 
-- Despachadas Versus Pedidas
--
+- Despachadas Versus Vendidas
+- Recibidas Versus Compradas
+
