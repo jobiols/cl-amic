@@ -45,6 +45,10 @@ class SaleReport(models.Model):
         readonly=True,
         string="Cantidad Entregada"
     )
+    warehouse = fields.Char(
+        readonly=True,
+        string="Almacen"
+    )
     price_unit = fields.Float(
         readonly=True,
         string="Precio por unidad"
@@ -116,6 +120,8 @@ class SaleReport(models.Model):
                         as quantity,
                     sol.qty_delivered
                         as delivered,
+                    sw.name
+                        as warehouse,
                     sol.price_unit,
                     rc.name
                         as currency,
@@ -177,6 +183,9 @@ class SaleReport(models.Model):
 
             JOIN res_partner rp1
             ON ru.partner_id = rp1.id
+
+            JOIN stock_warehouse sw
+            ON so.warehouse_id = sw.id
         """
         return from_str
 
