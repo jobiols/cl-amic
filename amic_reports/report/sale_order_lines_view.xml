@@ -58,12 +58,12 @@
         </field>
     </record>
 
-    <record id="view_account_move_line_filter" model="ir.ui.view">
-        <field name="name">Pivot</field>
+    <record id="view_sale_order_lines_filter" model="ir.ui.view">
+        <field name="name">Pivot DvV</field>
         <field name="model">sale.order.lines.report</field>
         <field name="arch" type="xml">
 
-            <search string="Search Journal Items">
+            <search string="Search DvV Pivot">
                 <group expand="0" string="Group By">
                     <filter string="Fecha Solicitada año" domain="[]" context="{'group_by':'requested_date:year'}"/>
                     <filter string="Fecha Solicitada mes" domain="[]" context="{'group_by':'requested_date:month'}"/>

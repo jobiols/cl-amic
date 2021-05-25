@@ -21,6 +21,10 @@ class SaleReport(models.Model):
         readonly=True,
         string="ID"
     )
+    default_code = fields.Char(
+        readonly=True,
+        string="Prod. Referencia interna"
+    )
     date_order = fields.Date(
         readonly=True,
         string="Fecha de Pedido"
@@ -31,11 +35,11 @@ class SaleReport(models.Model):
     )
     contact_name = fields.Char(
         readonly=True,
-        string="Nombre"
+        string="proveedor"
     )
     description = fields.Char(
         readonly=True,
-        string="Descripción"
+        string="Producto descripción"
     )
     product_qty = fields.Integer(
         readonly=True,
@@ -52,10 +56,6 @@ class SaleReport(models.Model):
     currency = fields.Char(
         readonly=True,
         string="Moneda"
-    )
-    simbol = fields.Char(
-        readonly=True,
-        string="Símbolo"
     )
     price_unit = fields.Float(
         readonly=True,
@@ -81,6 +81,10 @@ class SaleReport(models.Model):
         readonly=True,
         string="Modificado por"
     )
+    warehouse = fields.Char(
+        readonly=True,
+        string="Almacen"
+    )
 
     def _select(self):
         select_str = """
@@ -88,6 +92,7 @@ class SaleReport(models.Model):
                     po.name,
                     po.origin,
                     pol.id as id_line,
+                    pt.default_code,
                     po.date_order::timestamp::date,
                     po.date_planned::timestamp::date,
                     rp.name
@@ -96,12 +101,12 @@ class SaleReport(models.Model):
                         as description,
                     pol.product_qty,
                     pol.qty_received,
+                    spt.name
+                        as warehouse,
                     pu.name
                         as uom,
                     rc.name
                         as currency,
-                    rc.symbol
-                        as simbol,
                     pol.price_unit,
                     pol.price_subtotal,
                     pol.price_total,
@@ -129,8 +134,21 @@ class SaleReport(models.Model):
 
             JOIN res_users ru
             ON pol.write_uid = ru.id
+
             JOIN res_partner rp1
             ON ru.partner_id = rp1.id
+
+            JOIN product_product pp
+            ON pol.product_id = pp.id
+
+            JOIN product_template pt
+            ON pp.product_tmpl_id = pt.id
+
+            JOIN stock_picking_type spt
+            ON po.picking_type_id = spt.id
+
+            JOIN stock_warehouse sw
+            ON spt.warehouse_id = sw.id
         """
         return from_str
 
@@ -141,9 +159,6 @@ class SaleReport(models.Model):
     @api.model_cr
     def init(self):
         tools.drop_view_if_exists(self.env.cr, self._table)
-        self.env.cr.execute("""CREATE or REPLACE VIEW %s as (
-            %s
-            FROM %s
-            %s )
+        self.env.cr.execute("""CREATE or REPLACE VIEW %s as (%s FROM %s %s )
             """ % (self._table, self._select(), self._from(), self._group_by())
         )

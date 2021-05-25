@@ -9,16 +9,17 @@
                 <field name="origin"/>
                 <field name="id_line"/>
                 <field name="date_order"/>
+                <field name="default_code"/>
                 <field name="date_planned"/>
                 <field name="contact_name"/>
                 <field name="description" />
                 <field name="product_qty" />
                 <field name="qty_received" />
                 <field name="uom" />
-
                 <field name="create_date"/>
                 <field name="write_date"/>
                 <field name="write_usr"/>
+                <field name="warehouse"/>
             </tree>
         </field>
     </record>
@@ -32,35 +33,42 @@
                 <field name="origin" />
                 <field name="id_line"/>
                 <field name="date_order"/>
+                <field name="default_code"/>
                 <field name="date_planned"/>
                 <field name="contact_name"/>
                 <field name="description" />
-                <field name="product_qty" />
-                <field name="qty_received" />
+                <field name="product_qty" type="measure"/>
+                <field name="qty_received" type="measure"/>
                 <field name="uom" />
-
                 <field name="create_date"/>
                 <field name="write_date"/>
                 <field name="write_usr"/>
-
+                <field name="warehouse"/>
             </pivot>
         </field>
     </record>
 
-    <!-- <record id="view_account_move_line_filter" model="ir.ui.view">
-        <field name="name">Pivot</field>
+    <record id="view_purchase_order_line_filter" model="ir.ui.view">
+        <field name="name">Pivot RvC</field>
         <field name="model">purchase.order.lines.report</field>
         <field name="arch" type="xml">
 
-            <search string="Search Journal Items">
+            <search string="Search RcV Pivot">
                 <group expand="0" string="Group By">
-                    <filter string="Fecha Solicitada" domain="[]" context="{'group_by':'requested_date'}"/>
-                    <filter string="Fecha de Creación" domain="[]" context="{'group_by':'create_date'}"/>
+
+                    <filter string="Fecha de Pedido año" domain="[]" context="{'group_by':'date_order:year'}"/>
+                    <filter string="Fecha de Pedido mes" domain="[]" context="{'group_by':'date_order:month'}"/>
+<!--
+                    <filter string="Almacen" domain="[]" context="{'group_by':'warehouse'}"/>
                     <filter string="Cliente" domain="[]" context="{'group_by':'partner_name'}"/>
+                    <filter string="Pedido" domain="[]" context="{'group_by':'name'}"/>
+                    <separator/>
+                    <filter string="Fecha de Creación" domain="[]" context="{'group_by':'create_date'}"/>
                     <filter string="Referencia Interna" domain="[]" context="{'group_by':'default_code'}"/>
+-->
                 </group>
             </search>
         </field>
-    </record> -->
+    </record>
 
 </odoo>
