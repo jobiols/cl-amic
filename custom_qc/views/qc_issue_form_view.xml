@@ -27,4 +27,16 @@
             </xpath>
         </field>
     </record>
+
+    <record id="qc_issue_tree" model="ir.ui.view">
+        <field name="name">QUSTOM QC</field>
+        <field name="model">qc.issue</field>
+        <field name="inherit_id" ref="quality_control_issue.qc_issue_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='inspector_id']" position="after">
+                <field name="determination"/>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>
