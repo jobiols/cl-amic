@@ -20,11 +20,11 @@
                             </tr>
                             <tr>
                                 <td >
-                                    <strong>Inspector</strong> 
+                                    <strong>Inspector</strong>
                                 </td>
                                 <td>
                                     <span t-field="o.inspector_id"/>
-                                </td>    
+                                </td>
                                 <td>
                                     <strong>Lote</strong>
                                 </td>
@@ -34,11 +34,11 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <strong>Asignado a</strong> 
+                                    <strong>Asignado a</strong>
                                 </td>
                                 <td><span t-field="o.responsible_id"/></td>
                                 <td>
-                                    <strong>Producto</strong> 
+                                    <strong>Producto</strong>
                                 </td>
                                 <td>
                                     <span t-field="o.product_id"/>
@@ -46,26 +46,26 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <strong>Equipo QC</strong> 
+                                    <strong>Equipo QC</strong>
                                 </td>
                                 <td>
                                     <span t-field="o.qc_team_id"/></td>
                                 <td>
-                                    <strong>Cantidad</strong> 
+                                    <strong>Cantidad</strong>
                                 </td>
                                 <td>
                                     <span t-field="o.product_qty"/>
                                 </td>
                             </tr>
-                            <tr>                                
+                            <tr>
                                 <td>
-                                    <strong>Estado</strong> 
+                                    <strong>Estado</strong>
                                 </td>
                                 <td>
                                     <span t-field="o.state"/>
                                 </td>
                                 <td>
-                                    <strong>Unidad de medida</strong> 
+                                    <strong>Unidad de medida</strong>
                                 </td>
                                 <td>
                                     <span t-field="o.product_uom"/>
@@ -73,41 +73,41 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <strong>Workcenter 1 Detectó</strong> 
+                                    <strong>Workcenter 1 Detectó</strong>
                                 </td>
                                 <td>
                                     <span t-field="o.workcenter_1_id"/>
                                 </td>
                                 <td>
-                                    <strong>Ubicación</strong> 
+                                    <strong>Ubicación</strong>
                                 </td>
                                 <td>
                                     <span t-field="o.location_id"/>
                                 </td>
                             </tr>
-                            <tr>                                
+                            <tr>
                                 <td>
-                                    <strong>Workcenter 2 Origen</strong> 
+                                    <strong>Workcenter 2 Origen</strong>
                                 </td>
                                 <td>
                                     <span t-field="o.workcenter_2_id"/>
                                 </td>
                                 <td>
-                                    <strong>Fecha del problema</strong> 
+                                    <strong>Fecha del problema</strong>
                                 </td>
                                 <td>
                                     <span t-field="o.issue_date"/>
                                 </td>
-                            </tr>                                
-                            <tr>    
+                            </tr>
+                            <tr>
                                 <td>
-                                    <strong>Tratamiento</strong> 
+                                    <strong>Tratamiento</strong>
                                 </td>
                                 <td>
                                     <span t-field="o.workcenter_3_id"/>
                                 </td>
                                 <td>
-                                    <strong>Problemas</strong> 
+                                    <strong>Problemas</strong>
                                 </td>
                                 <td>
                                     <span t-esc="', '.join(map(lambda x: (x.name), o.qc_problem_ids))"/>
@@ -115,7 +115,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <strong>Descripción</strong> 
+                                    <strong>Descripción</strong>
                                 </td>
                                 <td>
                                     <span t-field="o.description"/>
@@ -130,7 +130,7 @@
                         </table>
                     </div>
                     </t>
-                </t>            
+                </t>
             </t>
         </template>
 

@@ -30,6 +30,27 @@ class QcIssueForm(models.Model):
         string="Determinación"
     )
 
+    #primera actualizacion v11.0.1.0.2
+    inspector_id = fields.Many2one(
+        comodel_name="res.users",
+        readonly=False,
+        required=False,
+    )
+
+    # segunda actualizacion v11.0.1.0.3
+    # inspector_id = fields.Many2one(
+    #     comodel_name="hr.employee",
+    #     string="Inspector",
+    #     track_visibility="onchange",
+    #     readonly=True, states={"new": [("readonly", False)]},
+    # )
+
+
+    responsible_id = fields.Many2one(
+        'hr.employee',
+        string="Asignado a"
+    )
+
     @api.multi
     def create_nonconformity(self, **kwargs):
         """
