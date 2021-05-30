@@ -4,7 +4,7 @@ from odoo import api, fields, models
 
 class SaleReport(models.Model):
     _name = "purchase.order.lines.report"
-    _description = "Purchase Order Lines Report"
+    _description = "Recibidas Versus Compradas"
     _auto = False
     _rec_name = 'name'
     #_order = 'requested_date desc'
@@ -61,6 +61,20 @@ class SaleReport(models.Model):
         readonly=True,
         string="Precio Unitario"
     )
+
+    price_unit_ars = fields.Float(
+        readonly=True,
+        string="Precio unitario en pesos"
+    )
+    price_unit_usd = fields.Float(
+        readonly=True,
+        string="Precio unitario en dolares"
+    )
+    price_unit_eur = fields.Float(
+        readonly=True,
+        string="Precio unitario en euros"
+    )
+
     price_subtotal = fields.Float(
         readonly=True,
         string="Subtotal"
@@ -108,6 +122,26 @@ class SaleReport(models.Model):
                     rc.name
                         as currency,
                     pol.price_unit,
+
+
+                    (CASE WHEN rc.name = 'ARS'
+                        THEN pol.price_unit
+                        ELSE NULL
+                     END)
+                        as price_unit_ars,
+
+                    (CASE WHEN rc.name = 'USD'
+                        THEN pol.price_unit
+                        ELSE NULL
+                     END)
+                        as price_unit_usd,
+
+                    (CASE WHEN rc.name = 'EUR'
+                        THEN pol.price_unit
+                        ELSE NULL
+                     END)
+                        as price_unit_eur,
+
                     pol.price_subtotal,
                     pol.price_total,
                     pol.create_date::timestamp::date,

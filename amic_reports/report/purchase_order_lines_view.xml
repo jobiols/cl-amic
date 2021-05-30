@@ -20,6 +20,9 @@
                 <field name="write_date"/>
                 <field name="write_usr"/>
                 <field name="warehouse"/>
+                <field name="price_unit_ars"/>
+                <field name="price_unit_usd"/>
+                <field name="price_unit_eur"/>
             </tree>
         </field>
     </record>
@@ -44,6 +47,10 @@
                 <field name="write_date"/>
                 <field name="write_usr"/>
                 <field name="warehouse"/>
+                <field name="price_unit_ars" type="measure"/>
+                <field name="price_unit_usd" type="measure"/>
+                <field name="price_unit_eur" type="measure"/>
+
             </pivot>
         </field>
     </record>
