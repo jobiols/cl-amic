@@ -19,7 +19,7 @@
 # -----------------------------------------------------------------------------
 {
     'name': 'AMIC',
-    'version': '11.0.0.0.5',
+    'version': '11.0.0.0.7',
     'license': 'Other OSI approved licence',
     'category': 'Default Application',
     'summary': 'Customization for AMIC',
