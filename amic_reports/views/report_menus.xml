@@ -22,6 +22,16 @@
         }</field>
     </record>
 
+    <record id="cutted_vol_kg_cutted_pivot_action" model="ir.actions.act_window" >
+        <field name="name">Volumen y Kilogramos Cortados</field>
+        <field name="res_model">mrp.workorder.report</field>
+        <field name="view_mode">pivot,graph,tree</field>
+        <field name="context">{
+            'group_by': [],
+            'measures': []
+        }</field>
+    </record>
+
     <menuitem
         id="menu_report_despachadas_vs_vendidas"
         name="Despachadas versus Vendidas"
@@ -37,4 +47,12 @@
         parent="purchase.purchase_report"
         groups="purchase.group_purchase_manager"
         sequence="10"/>
+
+    <menuitem
+        id="menu_report_cutted_vol_kg_cutted"
+        name="Volumen y Kilogramos Cortados"
+        action="cutted_vol_kg_cutted_pivot_action"
+        parent="mrp.menu_mrp_reporting"
+        sequence="20"/>
+
 </odoo>

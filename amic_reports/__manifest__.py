@@ -26,6 +26,7 @@
     "development_status": "Beta",  # "Alpha|Beta|Production/Stable|Mature"
     'author': 'jeo Software',
     'depends': [
+        'mrp'
     ],
     'data': [
         'report/sale_order_lines_view.xml',

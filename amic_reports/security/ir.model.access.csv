@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_sale_order_lines_report,access_sale_order_lines_report,model_sale_order_lines_report,base.group_user,1,0,0,0
 access_purchase_order_lines_report,access_purchase_order_lines_report,model_purchase_order_lines_report,base.group_user,1,0,0,0
+access_mrp_workorder_report,access_mrp_workorder_report,model_mrp_workorder_report,base.group_user,1,0,0,0
