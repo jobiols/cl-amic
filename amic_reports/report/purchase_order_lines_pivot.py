@@ -43,7 +43,7 @@ class SaleReport(models.Model):
     )
     product_qty = fields.Integer(
         readonly=True,
-        string="Cantidad"
+        string="Cant. Pedida"
     )
     qty_received = fields.Integer(
         readonly=True,
@@ -51,7 +51,7 @@ class SaleReport(models.Model):
     )
     uom = fields.Char(
         readonly=True,
-        string="Nombre mostrado"
+        string="UdM"
     )
     currency = fields.Char(
         readonly=True,
@@ -115,7 +115,7 @@ class SaleReport(models.Model):
                         as description,
                     pol.product_qty,
                     pol.qty_received,
-                    spt.name
+                    rp2.name
                         as warehouse,
                     pu.name
                         as uom,
@@ -183,6 +183,10 @@ class SaleReport(models.Model):
 
             JOIN stock_warehouse sw
             ON spt.warehouse_id = sw.id
+
+            JOIN res_partner rp2
+            ON sw.partner_id = rp2.id
+
         """
         return from_str
 
