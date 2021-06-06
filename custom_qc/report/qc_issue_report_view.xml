@@ -23,7 +23,7 @@
                                     <strong>Inspector</strong>
                                 </td>
                                 <td>
-                                    <span t-field="o.inspector_id"/>
+                                    <span t-field="o.inspector1_id"/>
                                 </td>
                                 <td>
                                     <strong>Lote</strong>
@@ -36,7 +36,7 @@
                                 <td>
                                     <strong>Asignado a</strong>
                                 </td>
-                                <td><span t-field="o.responsible_id"/></td>
+                                <td><span t-field="o.responsible1_id"/></td>
                                 <td>
                                     <strong>Producto</strong>
                                 </td>
