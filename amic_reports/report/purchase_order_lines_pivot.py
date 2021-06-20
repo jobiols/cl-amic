@@ -99,6 +99,18 @@ class SaleReport(models.Model):
         readonly=True,
         string="Almacen"
     )
+    income_cost_usd = fields.Float(
+        readonly=True,
+        string="Costo recibido USD"
+    )
+    income_cost_eur = fields.Float(
+        readonly=True,
+        string="Costo recibido EUR"
+    )
+    income_cost_ars = fields.Float(
+        readonly=True,
+        string="Costo recibido ARS"
+    )
 
     def _select(self):
         select_str = """
@@ -123,6 +135,23 @@ class SaleReport(models.Model):
                         as currency,
                     pol.price_unit,
 
+                    (CASE WHEN rc.name = 'ARS'
+                        THEN pol.price_unit * pol.qty_received
+                        ELSE NULL
+                     END)
+                        as income_cost_ars,
+
+                    (CASE WHEN rc.name = 'USD'
+                        THEN pol.price_unit * pol.qty_received
+                        ELSE NULL
+                     END)
+                        as income_cost_usd,
+
+                    (CASE WHEN rc.name = 'EUR'
+                        THEN pol.price_unit * pol.qty_received
+                        ELSE NULL
+                     END)
+                        as income_cost_eur,
 
                     (CASE WHEN rc.name = 'ARS'
                         THEN pol.price_unit
