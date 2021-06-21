@@ -27,8 +27,8 @@
         <field name="res_model">mrp.workorder.report</field>
         <field name="view_mode">pivot,graph,tree</field>
         <field name="context">{
-            'group_by': [],
-            'measures': []
+            'group_by': ['date_start:year','date_start:month','workcenter','product','product_uom'],
+            'measures': ['qty_produced']
         }</field>
     </record>
 

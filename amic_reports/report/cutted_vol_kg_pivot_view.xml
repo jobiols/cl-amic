@@ -1,3 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="view_purchase_order_line_filter" model="ir.ui.view">
+        <field name="name">Pivot Volumen y Kilogramos Cortados</field>
+        <field name="model">mrp.workorder.report</field>
+        <field name="arch" type="xml">
+
+            <search string="Search VyKgC Pivot">
+                <group expand="0" string="Group By">
+                    <filter string="Fecha de Inicio Efectiva Año" domain="[]" context="{'group_by':'date_start:year'}"/>
+                    <filter string="Fecha de Inicio Efectiva Mes" domain="[]" context="{'group_by':'date_start:month'}"/>
+                    <filter string="Centro de Producción" domain="[]" context="{'group_by':'workcenter'}"/>
+                    <filter string="Producto" domain="[]" context="{'group_by':'product'}"/>
+                    <filter string="Unidad de medida" domain="[]" context="{'group_by':'product_uom'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
 </odoo>

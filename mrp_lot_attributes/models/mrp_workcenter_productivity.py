@@ -11,6 +11,7 @@ class MrpWorkcenterProductivity(models.Model):
 
     ot = fields.Char(
         related='workorder_id.ot',
+        store=True,
         string='OT Amic'
     )
     workcenter = fields.Char(
