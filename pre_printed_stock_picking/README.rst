@@ -7,9 +7,9 @@ Remito Pre-impreso Aeroo para AMIC
    !! changes will be overwritten.                   !!
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-.. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
+.. |badge1| image:: https://img.shields.io/badge/maturity-Production%2FStable-green.png
     :target: https://odoo-community.org/page/development-status
-    :alt: Beta
+    :alt: Production/Stable
 .. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
@@ -36,6 +36,7 @@ remito aparecen los siguientes datos:
 +-----------+--------------------------+--------+
 
 Donde:
+
 - cc: La cantidad de producto en la unidad de medida del producto, puede ser unidades o Kg
 - DESC: [Codigo-interno] nombre del producto, el nombre del producto para Amic
 - NNN: Numero de lote
@@ -59,6 +60,7 @@ En el cuerpo del remito, cada linea de producto tendra los siguientes datos:
 +-----------+--------------------------+-----------+
 
 Donde:
+
 - qq: Cantidad de producto en la unidad de medida del producto, en general seran unidades.
 - DESC: [Codigo-interno] nombre del producto Segun se cargo en la oreja Ventas del producto para este cliente
 - NNN: Numero de lote
@@ -76,11 +78,18 @@ Configuration
 Si se requiere adecuar el reporte a la forma del preimpreso para eso hay que
 editar la plantilla de documento openoffice que esta en report/stock_picking.odt
 
-Atributos del lote en el remito
--------------------------------
+**Movimiento interno o Remito al cliente**
+Para configurar si el reporte sera un movimiento interno o un remito al cliente
+ir a Inventario > Configuración > Almacenes > Ubicaciones
+
+En la ubicación seleccionar **Tipo de Ubicacion** como Ubicación interna o Ubicación de cliente
+
+**Atributos del lote en el remito**
 Para controlar que atributos del lote que se muestran en el remito al cliente,
-ir a la ficha del producto oreja **Ventas** (visible solo si esta tildada la
-opcion **Puede ser vendido**). Aqui se pueden seleccionar los atributos que se
+ir a la ficha del producto pestaña **Ventas** (visible solo si esta tildada la
+opcion **Puede ser vendido**) bajar hasta **Atributos a mostrar en remito al cliente**
+
+Aqui se pueden seleccionar los atributos que se
 mostraran en el remito al cliente.
 
 Usage

@@ -15,6 +15,7 @@ remito aparecen los siguientes datos:
 +-----------+--------------------------+--------+
 
 Donde:
+
 - cc: La cantidad de producto en la unidad de medida del producto, puede ser unidades o Kg
 - DESC: [Codigo-interno] nombre del producto, el nombre del producto para Amic
 - NNN: Numero de lote
@@ -38,6 +39,7 @@ En el cuerpo del remito, cada linea de producto tendra los siguientes datos:
 +-----------+--------------------------+-----------+
 
 Donde:
+
 - qq: Cantidad de producto en la unidad de medida del producto, en general seran unidades.
 - DESC: [Codigo-interno] nombre del producto Segun se cargo en la oreja Ventas del producto para este cliente
 - NNN: Numero de lote
