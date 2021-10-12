@@ -18,7 +18,7 @@
 #
 # -----------------------------------------------------------------------------
 {
-    'name': 'Amic PIVOT Reports',
+    'name': 'PIVOT Reports',
     'version': '11.0.1.0.0',
     'license': 'Other OSI approved licence',
     'category': 'Reports',
