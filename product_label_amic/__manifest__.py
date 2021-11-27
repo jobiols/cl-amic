@@ -1,5 +1,5 @@
 {
-    'name': "product_label_amic",
+    'name': "Product Label Amic",
 
     'summary': """
         Agrega reporte de etiquetas en el boton imprimir de una transferencia""",

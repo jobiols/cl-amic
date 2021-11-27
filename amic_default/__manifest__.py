@@ -55,6 +55,7 @@
         'mrp_easy_prod',  # wizard para encontrar rapidamente la ot produccion
         'mrp_production_cancel',
         'amic_reports',
+        'product_label_amic',
 
         # requerido por la restriccion de menuitems
         'mail', 'calendar', 'contacts', 'mrp', 'sale', 'purchase', 'stock',
