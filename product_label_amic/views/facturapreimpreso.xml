@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="paperformat_preimpreso" model="report.paperformat">
+        <field name="name">European A4 low margin</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">0</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">100</field>
+        <field name="dpi">80</field>
+    </record>
+    <!-- <record id="unique_sequence_id" model="ir.sequence">
+      <field name="name">Label Amic Tarjeta</field>
+      <field name="code">label.amic.card</field>
+      <field name="active">TRUE</field>
+      <field name="prefix">%(y)s%(month)s%(day)s</field>
+      <field name="padding">5</field>
+      <field name="number_next">1</field>
+      <field name="number_increment">1</field>
+    </record> -->
+
+<template id="report_delivery_document_inherit" inherit_id="stock.report_delivery_document">
+<xpath expr="//t[@t-call='web.external_layout']" position="replace">
+<t t-call="web.internal_layout">
+<t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)" />
+<t t-esc="i" t-option='{"widget": "integer"}'/>
+<t t-set="i" t-value="1" />
+<t t-set="kg" t-value="kg" />
+    <!-- <table class="table table-condensed mt48" t-if="o.state!='done'">
+        <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>
+        <tr t-foreach="lines" t-as="move">
+            <td>
+                <span t-field="move.product_id"/>
+                <p t-if="o.picking_type_code == 'outgoing'">
+                    <span t-field="move.product_id.sudo().description_pickingout"/>
+                </p>
+                <p t-if="o.picking_type_code == 'incoming'">
+                    <span t-field="move.product_id.sudo().description_pickingin"/>
+                </p>
+            </td>
+            <td>
+                <span t-field="move.product_uom_qty"/>
+                <span t-field="move.product_uom"/>
+            </td>
+            <td>
+                <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', move.product_uom_qty, 800, 250)" style="width:300px;height:50px"/>
+            </td>
+        </tr>
+    </table> -->
+
+
+
+        <tr t-foreach="o.move_lines" t-as="move">
+
+        <!-- Si son kg -->
+        
+   <t t-if="'kg' in move.product_uom.name ">
+          <tr t-foreach="move.active_move_line_ids" t-as="active_move_line_ids">
+              <div style="width: 47%; display: inline-table; height:14rem; !important;">
+
+                <table class="table table-bordered mb-0">
+                  <tbody>
+                    <tr>
+                    
+                      <td><div class="col-sm-10 text-left" style="font-size: 9px !important;">
+                      Cliente:
+                      <br/>
+                      <div class="col-sm-10 text-left">      
+                      <span t-field="move.partner_id.name"/>
+                      <br/>
+                      <span t-field="move.partner_id.street"/> <span t-field="move.partner_id.city"/> <span t-field="move.partner_id.state_id"/> - <span t-field="move.partner_id.country_id"/>
+                      </div>
+                      </div>
+                      </td>
+                      <td>
+                      <div style="width: 30%;float: right;">
+                          <img src='/web/binary/company_logo' style="width:100%"/>
+                      </div>
+                      <div class="col-sm-10 text-left" style="font-size: 9px !important;">
+                      Direccion del proveedor:
+                      <br/>
+                      <div class="col-sm-10 text-left">
+                      <span t-field="move.company_id.street"/>
+                      <br/>
+                      <span t-field="move.company_id.city"/> 
+                      <span t-field="move.company_id.state_id"/> - 
+                      <span t-field="move.company_id.country_id"/>
+                      </div>
+                </div>
+                </td>
+                    </tr>
+                    <tr>
+                      <td style="padding-right: 0px !important; margin-right: 0px !important;">
+                        <div class="col-sm-10 text-left" style="font-size: 9px !important; padding-right: 0px !important; margin-right: 0px !important;">
+                          N° DE DOCUMENTO(N):<strong t-field="o.voucher_ids.name"/>
+                          <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.voucher_ids.name, 800, 250)" style="width:250px;height:30px; padding-right: 0px !important; margin-right: 0px !important;"/>
+                        </div>
+                      </td>
+                      <td style="padding: 0px !important; margin: 0px !important;">
+                        <div class="col-sm-10 text-left" style="font-size: 9px !important; padding: 0px !important; margin: 0px !important;">
+                        Datos a completar por calidad
+                        <table class="table table-bordered" style="padding: 0px !important; margin: 0px !important;">
+                            <tbody style="padding: 0px !important; margin: 0px !important;">
+                                <tr>
+                                    <td scope="row"><strong> OK</strong></td>
+                                    <td><strong> NO OK </strong></td>
+                                    <td>Observado</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span style="padding-top: 0.031rem !important; padding-bottom: 0.031rem !important;">
+                          Firma Calidad: 
+                        </span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" style="padding-right: 0px !important; margin-right: 0px !important;">
+                        <div class="col-sm-10 text-left" style="font-size: 9px !important; padding-right: 0px !important; margin-right: 0px !important;">
+                          Pieza de referencia(P):
+                          <span t-foreach="move.product_id.customer_ids" t-as="customer_id">
+                            <t t-if="customer_id.name == o.partner_id">
+                              <strong t-field="customer_id.product_code"/>
+                              <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', customer_id.product_code, 800, 250)" style="width:300px;height:30px; padding-right: 0px !important; margin-right: 0px !important;"/>
+                            </t>
+                          </span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding-right: 0px !important; margin-right: 0px !important;">
+                      <div class="col-sm-10 text-left" style="font-size: 9px !important;padding-right: 0px !important; margin-right: 0px !important;">
+                      CANTIDAD:
+                      <strong t-field="move.product_id.uom_id.factor_inv"/>
+                        <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move.product_id.uom_id.factor_inv, 800, 250)" style="width:250px;height:25px; padding-right: 0px !important; margin-right: 0px !important;"/>
+                      </div>
+                      </td>
+                      <td> 
+                      <div class="col-sm-10 text-left" style="font-size: 9px !important;">
+                      DESCRIPCIÓN:
+                      <span t-foreach="move.product_id.customer_ids" t-as="customer_id">
+                            <t t-if="customer_id.name == o.partner_id">
+                              <strong t-field="customer_id.product_name"/>
+                            </t>
+                      </span>
+                      </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding-right: 0px !important; margin-right: 0px !important;"> 
+                        <div class="col-sm-10 text-left" style="font-size: 9px !important; padding-right: 0px !important; margin-right: 0px !important;">
+                          
+                          <t t-if="o.sale_id.client_order_ref">
+                          
+                          PROVEEDOR(V):  
+                          <strong t-esc="o.sale_id.client_order_ref[3:]"/>
+                          <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.sale_id.client_order_ref[3:], 800, 250)" style="width:250px;height:25px; padding-right: 0px !important; margin-right: 0px !important;"/>
+                        </t>
+                        <t t-else="">
+                          PROVEEDOR(V):  
+                          </t>
+                        </div>
+                      </td>
+                      <td style="padding: 0px !important; margin: 0px !important;">
+                        <div class="col-sm-10 text-left" style="font-size: 6px !important; padding: 0px !important; margin: 0px !important;">
+                          <table class="table table-bordered" style="padding: 0px !important; margin: 0px !important;">
+                                <tbody style="padding: 0px !important; margin: 0px !important;">
+                                    <tr>
+                                        <t t-set="peso_neto_bruto" t-value="(float(move.product_id.uom_id.factor_inv) * float(move.product_id.weight))" />
+                                        <td scope="row">PESO NETO(KG): <strong><t t-esc="peso_neto_bruto" t-options='{"widget": "float", "precision": 2}'/></strong></td>
+                                        <td>
+                                          PESO BRUTO(KG): <strong><t t-esc="peso_neto_bruto" t-options='{"widget": "float", "precision": 2}'/></strong>
+                                        </td>
+                                        <td>
+                                          NÚMERO DE CAJAS: <strong><span t-field="active_move_line_ids.qty_done" t-options='{"widget": "float", "precision": 2}'/></strong>
+                                        </td>
+                                    </tr>
+                                    <tr style="margin-bottom: 0px !important;">
+                                        <td scope="row">FECHA: <strong><span t-field="move.date_expected" t-field-options="{'format': 'dd-MM-yyyy'}"/></strong></td>
+                                        <td colspan="2">MODIFICACION DE INGENIERIA:</td>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                    <td style="padding-right: 0px !important; margin-right: 0px !important;"> 
+                    <div class="col-sm-10 text-left" style="font-size: 9px !important; padding-right: 0px !important; margin-right: 0px !important;">
+                    <t t-set="nro_tarjeta" t-value="datetime.datetime.strptime(move.date_expected, '%Y-%m-%d %H:%M:%S').strftime('%y')+''+datetime.datetime.strptime(move.date_expected, '%Y-%m-%d %H:%M:%S').strftime('%m')+''+datetime.datetime.strptime(move.date_expected, '%Y-%m-%d %H:%M:%S').strftime('%d')+''+(str(i).zfill(3))" />
+                    N° DE TARJETA(S):  <strong t-esc="nro_tarjeta"/>
+                    <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', nro_tarjeta, 800, 250)" style="width:250px;height:25px; padding-right: 0px !important; margin-right: 0px !important;"/>
+                      <t t-set="i" t-value="i+1"/>
+                      </div>
+                      </td>
+                      <td style="padding-right: 0px !important; margin-right: 0px !important;">
+                        <div class="col-sm-10 text-left" style="font-size: 9px !important; padding-right: 0px !important; margin-right: 0px !important;">
+                          LOTE N°(H):  <strong t-field="active_move_line_ids.lot_id"/>
+                          <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', active_move_line_ids.lot_id.name, 800, 250)" style="width:250px;height:30px; padding-right: 0px !important; margin-right: 0px !important;"/>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+
+          </tr>
+          </t>
+          <t t-else="">
+<!-- Si no es kg -->
+          <tr t-foreach="move.active_move_line_ids" t-as="active_move_line_ids">
+            <tr t-foreach="int(active_move_line_ids.qty_done)" t-as="qty_done">
+
+              <div style="width: 45%; display: inline-table; height:5rem; !important;">
+
+                <table class="table table-bordered mb-0">
+                  <tbody>
+                    <tr>
+                    
+                      <td><div class="col-sm-10 text-left" style="font-size: 9px !important;">
+                      Cliente:
+                      <br/>
+                      <div class="col-sm-10 text-left">      
+                      <span t-field="move.partner_id.name"/>
+                      <br/>
+                      <span t-field="move.partner_id.street"/> <span t-field="move.partner_id.city"/> <span t-field="move.partner_id.state_id"/> - <span t-field="move.partner_id.country_id"/>
+                      </div>
+                      </div>
+                      </td>
+                      <td>
+                      <div style="width: 30%;float: right;">
+                          <img src='/web/binary/company_logo' style="width:100%"/>
+                      </div>
+                      <div class="col-sm-10 text-left" style="font-size: 9px !important;">
+                      Direccion del proveedor:
+                      <br/>
+                      <div class="col-sm-10 text-left">
+                      <span t-field="move.company_id.street"/>
+                      <br/>
+                      <span t-field="move.company_id.city"/> 
+                      <span t-field="move.company_id.state_id"/> - 
+                      <span t-field="move.company_id.country_id"/>
+                      </div>
+                </div>
+                </td>
+                    </tr>
+                    <tr>
+                      <td style="padding-right: 0px !important; margin-right: 0px !important;">
+                        <div class="col-sm-10 text-left" style="font-size: 9px !important; padding-right: 0px !important; margin-right: 0px !important;">
+                          N° DE DOCUMENTO(N):<strong t-field="o.voucher_ids.name"/>
+                          <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.voucher_ids.name, 800, 250)" style="width:250px;height:30px; padding-right: 0px !important; margin-right: 0px !important;"/>
+                        </div>
+                      </td>
+                      <td style="padding: 0px !important; margin: 0px !important;">
+                        <div class="col-sm-10 text-left" style="font-size: 9px !important; padding: 0px !important; margin: 0px !important;">
+                        Datos a completar por calidad
+                        <table class="table table-bordered" style="padding: 0px !important; margin: 0px !important;">
+                            <tbody style="padding: 0px !important; margin: 0px !important;">
+                                <tr>
+                                    <td scope="row"><strong> OK</strong></td>
+                                    <td><strong> NO OK </strong></td>
+                                    <td>Observado</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span style="padding-top: 0.031rem !important; padding-bottom: 0.031rem !important;">
+                          Firma Calidad: 
+                        </span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" style="padding-right: 0px !important; margin-right: 0px !important;">
+                        <div class="col-sm-10 text-left" style="font-size: 9px !important; padding-right: 0px !important; margin-right: 0px !important;">
+                          Pieza de referencia(P):
+                          <span t-foreach="move.product_id.customer_ids" t-as="customer_id">
+                            <t t-if="customer_id.name == o.partner_id">
+                              <strong t-field="customer_id.product_code"/>
+                              <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', customer_id.product_code, 800, 250)" style="width:300px;height:30px; padding-right: 0px !important; margin-right: 0px !important;"/>
+                            </t>
+                          </span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding-right: 0px !important; margin-right: 0px !important;">
+                        <div class="col-sm-10 text-left" style="font-size: 9px !important; padding-right: 0px !important; margin-right: 0px !important;">
+                          CANTIDAD:
+                          <strong t-field="move.product_id.uom_id.factor_inv"/>
+                          <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move.product_id.uom_id.factor_inv, 800, 250)" style="width:250px;height:25px; padding-right: 0px !important; margin-right: 0px !important;"/>
+                        </div>
+                      </td>
+                      <td> 
+                      <div class="col-sm-10 text-left" style="font-size: 9px !important;">
+                      DESCRIPCIÓN:
+                      <span t-foreach="move.product_id.customer_ids" t-as="customer_id">
+                            <t t-if="customer_id.name == o.partner_id">
+                              <strong t-field="customer_id.product_name"/>
+                            </t>
+                      </span>
+                      </div>
+                </td>
+                    </tr>
+                    <tr>
+
+                      <td style="padding-right: 0px !important; margin-right: 0px !important;"> 
+                        <div class="col-sm-10 text-left" style="font-size: 9px !important; padding-right: 0px !important; margin-right: 0px !important;">
+                          <t t-if="o.sale_id.client_order_ref">
+                          
+                          PROVEEDOR(V):  
+                          <strong t-esc="o.sale_id.client_order_ref[3:]"/>
+                          <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.sale_id.client_order_ref[3:], 800, 250)" style="width:250px;height:25px; padding-right: 0px !important; margin-right: 0px !important;"/>
+                        </t>
+                        <t t-else="">
+                          PROVEEDOR(V):  
+                        </t>
+                        </div>
+                      </td>
+                      <td style="padding: 0px !important; margin: 0px !important;">
+                        <div class="col-sm-10 text-left" style="font-size: 6px !important; padding: 0px !important; margin: 0px !important;">
+                          <table class="table table-bordered" style="padding: 0px !important; margin: 0px !important;">
+                                <tbody style="padding: 0px !important; margin: 0px !important;">
+                                    <tr>
+                                        <t t-set="peso_neto_bruto" t-value="(float(move.product_id.uom_id.factor_inv) * float(move.product_id.weight))" />
+                                        <td scope="row">PESO NETO(KG): <strong><t t-esc="peso_neto_bruto" t-options='{"widget": "float", "precision": 2}'/></strong></td>
+                                        <td>
+                                          PESO BRUTO(KG): <strong><t t-esc="peso_neto_bruto" t-options='{"widget": "float", "precision": 2}'/></strong>
+                                        </td>
+                                        <td>
+                                          NÚMERO DE CAJAS: <strong><span t-field="active_move_line_ids.qty_done" t-options='{"widget": "float", "precision": 2}'/></strong>
+                                        </td>
+                                    </tr>
+                                    <tr style="margin-bottom: 0px !important;">
+                                        <td scope="row">FECHA: <strong><span t-field="move.date_expected" t-field-options="{'format': 'dd-MM-yyyy'}"/></strong></td>
+                                        <td colspan="2">MODIFICACION DE INGENIERIA:</td>
+                                    </tr>
+                                </tbody>
+                          </table>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                    <td style="padding-right: 0px !important; margin-right: 0px !important;"> 
+                      <div class="col-sm-10 text-left" style="font-size: 9px !important; padding-right: 0px !important; margin-right: 0px !important;">
+                        <t t-set="nro_tarjeta" t-value="datetime.datetime.strptime(move.date_expected, '%Y-%m-%d %H:%M:%S').strftime('%y')+''+datetime.datetime.strptime(move.date_expected, '%Y-%m-%d %H:%M:%S').strftime('%m')+''+datetime.datetime.strptime(move.date_expected, '%Y-%m-%d %H:%M:%S').strftime('%d')+''+(str(i).zfill(3))" />
+                        N° DE TARJETA(S):  <strong t-esc="nro_tarjeta"/>
+                        <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', nro_tarjeta, 800, 250)" style="width:250px;height:25px; padding-right: 0px !important; margin-right: 0px !important;"/>
+                        <t t-set="i" t-value="i+1"/>
+                      </div>
+                    </td>
+                      <td style="padding-right: 0px !important; margin-right: 0px !important;">
+                        <div class="col-sm-10 text-left" style="font-size: 9px !important; padding-right: 0px !important; margin-right: 0px !important;">
+                          LOTE N°(H):  <strong t-field="active_move_line_ids.lot_id"/>
+                          <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', active_move_line_ids.lot_id.name, 800, 250)" style="width:250px;height:30px; padding-right: 0px !important; margin-right: 0px !important;"/>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+
+            </tr>
+          </tr>
+          </t>
+        </tr>
+      </t>
+    </xpath>
+</template>
+
+<template id="report_deliveryslip1">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="product_label_amic.report_delivery_document_inherit" t-lang="o.partner_id.lang"/>
+        </t>
+    </template>
+
+<report id="ba_report_preimpreso" model="stock.picking" name="product_label_amic.report_deliveryslip1" report_type="qweb-pdf" string="Etiqueta Producto Final"/>
+
+
+<record id="ba_report_preimpreso" model="ir.actions.report">
+<field name="paperformat_id" ref="paperformat_preimpreso"/>
+</record>
+
+</odoo>
